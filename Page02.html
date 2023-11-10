@@ -3,8 +3,8 @@
 <html>
 <head>
 
-    <!-- <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" /> -->
-    <!-- <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/structure/infragistics.css" rel="stylesheet" /> -->
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/structure/infragistics.css" rel="stylesheet" />
 
     <script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -35,7 +35,13 @@ $(function() {
 				{key:"col2", headerText:"col2", dataType:"string", width:"200px"},
 				{key:"col3", headerText:"col3", dataType:"string", width:"200px"}
 			],
-			dataSource: data
+			dataSource: data,
+			defaultColumnWidth: "100px",
+			features: [
+				{
+					name: "ColumnFixing"
+				}
+			]
 		}
     );
 });
