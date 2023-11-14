@@ -1,27 +1,123 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Getting Started with jQuery Grid</title>
-    <meta charset="utf-8" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
-</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/plugins/css/ui.multiselect.min.css"/>
+
 <body>
-    <table id="grid"></table>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var grid = $('#grid').grid({
-                dataSource: '/Players/Get',
-                columns: [
-                    { field: 'ID', width: 56 },
-                    { field: 'Name', sortable: true },
-                    { field: 'PlaceOfBirth', title: 'Place Of Birth', sortable: true },
-                    { field: 'DateOfBirth', title: 'Date Of Birth', type: 'date', width: 150 }
-                ],
-                pager: { limit: 5 }
-            });
-        });
-    </script>
+
+<table id="my-grid"></table>
+<div id="my-grid-pager"></div>
+
 </body>
+
+<script>
+
+// 列ごとの詳細設定
+var colModelSettings= [	
+    {name:"no", width:400, align:"center", sortable:true, sorttype:"int"},
+    {name:"name", width:400, align:"center", sortable:true},
+    {name:"type1", width:400, align:"center", sortable:true, formatter:typecolor},
+    {name:"type2", width:400, align:"center", sortable:true, formatter:typecolor}
+];
+
+// 列の表示名
+var colNames = ["No","名前","タイプ1","タイプ2"];
+
+// Gridに挿入するデータ
+var data = [
+    {no:1,name:"フシギダネ",type1:"くさ",type2:"どく"},
+    {no:2,name:"フシギソウ",type1:"くさ",type2:"どく"},
+    {no:3,name:"フシギバナ",type1:"くさ",type2:"どく"},
+    {no:4,name:"ヒトカゲ",type1:"ほのお",type2:""},
+    {no:5,name:"リザード",type1:"ほのお",type2:""},
+    {no:6,name:"リザードン",type1:"ほのお",type2:"ひこう"},
+    {no:7,name:"ゼニガメ",type1:"みず",type2:""},
+    {no:8,name:"カメール",type1:"みず",type2:""},
+    {no:9,name:"カメックス",type1:"みず",type2:""},
+    {no:10,name:"キャタピー",type1:"むし",type2:""}
+];
+
+$(function(){
+    $("#my-grid").jqGrid({
+    // データ
+    data:data,
+    // データの種類
+    datatype : "local",
+    // 列ヘッダー名(配列)
+    colNames : colNames,
+    // 列の各種設定(オブジェクト配列)
+    colModel : colModelSettings,
+    // 初期表示行数
+    rowNum : 10,
+    // 行数設定
+    rowList : [1, 10, 20],
+    // Gridのタイトル
+    caption : "サンプルグリッド",
+    // グリッドの縦幅　
+    height : 350,
+    // グリッドの横幅
+    width : 480,
+    // ページャーのID
+    pager : 'my-grid-pager',
+    // 列幅を自動調整するか
+    shrinkToFit : false,
+    // 行数を表示するか
+    viewrecords: true,
+    // 複数行選択有りか
+    multiselect :true,
+    // 初期ソート列
+    sortname: 'no',
+    // 初期ソート条件
+    sortorder: 'DESC',
+    // ロード完了後の処理
+    loadComplete: function(data){
+        console.log(data);
+    },
+    // 行選択時に走る処理
+    onSelectRow: function(rowid, status, e){
+        console.log(rowid, status, e);
+    },
+    // 行選択直前に走る処理
+    beforeSelectRow: function(rowid, e){
+        console.log(rowid, e);
+        //return false;
+    }
+    });
+});
+
+/*
+* フォーマッター関数。
+* (引数:セルの値、行の設定、行のオブジェクト)
+*/
+function typecolor(cellValue, rowOption, rowObject){
+    let colorCode = "#000000";
+    switch(cellValue){
+        case "くさ":
+            colorCode = "#66CC33"
+            break;
+        case "みず":
+            colorCode = "#0000FF"
+            break;
+        case "ほのお":
+            colorCode = "#FF0000";
+            break;
+        case "むし":
+            colorCode = "#808000"
+            break;
+        case "どく":
+            colorCode = "#FF00FF"
+            break;
+        default:
+        break;
+    }
+
+    return "<span style='color:" + colorCode + "'>" + cellValue + "</span>";
+}
+
+</script>
+    
 </html>
