@@ -1,79 +1,83 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link type="text/css" media="screen" href="jqGrid/jquery-ui.min.css" rel="stylesheet" />
-<link type="text/css" media="screen" href="jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
-<script type="text/javascript" src="jqGrid/js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
-<script type="text/javascript" src="jqGrid/js/i18n/grid.locale-ja.js"></script>
 
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/structure/infragistics.css" rel="stylesheet" />
 
-<script type="text/javascript">
-    $(function() {
-        //列の設定
-        var colModelSettings= [
-            {name:"radio",index:"radio",width:50,align:"center",classes:"radio_class"},
-            {name:"no",index:"no",width:70,align:"center",classes:"no_class"},
-            {name:"name",index:"name",width:200,align:"center",classes:"name_class"},
-            {name:"age",index:"age",width:200,align:"center",classes:"age_class"},
-            {name:"local",index:"local",width:200,align:"center",classes:"local_class"},
-            {name:"hobby",index:"hobby",width:200,align:"center",classes:"hobby_class"}
-        ];
+    <script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 
-        //列の表示名
-        var colNames = ["","No.","name","age","local","hobby"];
+    <script src="https://cdn-na.infragistics.com/igniteui/2022.1/latest/js/infragistics.core.js"></script>
+    <script src="https://cdn-na.infragistics.com/igniteui/2022.1/latest/js/infragistics.lob.js"></script>
 
-        var date = [
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:1,name:"nakagawa",age:20,local:"Japan",hobby:"Tennis"},
-                    {no:2,name:"nakayama",age:20,local:"Japan",hobby:"Soccer"}
-                ];
+<script>
+$(function() {
 
-        //テーブルの作成
-        $("#sample1").jqGrid({
-            data:date,  //表示したいデータ
-            datatype : "local",            //データの種別 他にjsonやxmlも選べます。
-                                               //しかし、私はlocalが推奨です。
-            colNames : colNames,           //列の表示名
-            colModel : colModelSettings,   //列ごとの設定
-            rowNum : 10,                   //一ページに表示する行数
-            rowList : [1, 10, 20],         //変更可能な1ページ当たりの行数
-            caption : "Sample Display",    //ヘッダーのキャプション
-            height : 200,                  //高さ
-            width : 500,                   //幅
-            pager : 'pager1',              //footerのページャー要素のid
-            regional : 'ja',               //日本語
-            shrinkToFit : true,       //画面サイズに依存せず固定の大きさを表示する設定
-            viewrecords: true             //footerの右下に表示する。
-        });
-    });
+    var data = [];
+	for(var i = 0; i < 20; i++)
+	{
+		data.push({"id":i, "col1":i, "col2":"test" + i,"col3":"test" + i});
+	}
+			
+	$("#grid1").igGrid(
+		{
+			autoGenerateColumns:false,
+			autoCommit:true,
+			primaryKey:"id",
+			height:"300px",
+			width:"300px",
+			columns:[
+				{key:"id", headerText:"id", dataType:"number", width:"1000px"},
+				{key:"col1", headerText:"col1", dataType:"number", width:"1000px"},
+				{key:"col2", headerText:"col2", dataType:"string", width:"1000px"},
+				{key:"col3", headerText:"col3", dataType:"string", width:"1000px"}
+			],
+			dataSource: data
+		}
+    );
+});
+
 </script>
 </head>
 <body>
-    <table id="sample1"></table>
-    <div id="pager1"></div>
+
+<table id="grid1"></table>
+
+<br>
+<br>
+
+<div style="width:300px;height:300px;overflow:scroll;">
+<div style="width:800px;height:800px;">
+test1
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+test2
+</div>
+</div>
+
+
+<br>
+<br>
+<div>
+	<p><a href="./index.html">ホームに戻る</a></p>
+</div>
+
 </body>
 </html>
