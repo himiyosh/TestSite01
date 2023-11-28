@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="https://cdn-na.infragistics.com/igniteui/2022.1/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <script src="https://cdn-na.infragistics.com/igniteui/2022.1/latest/js/infragistics.core.js"></script>
+    <script src="https://cdn-na.infragistics.com/igniteui/2022.1/latest/js/infragistics.lob.js"></script>
+
+<script>
+$(function() {
+
+    var data = [];
+	for(var i = 0; i < 20; i++)
+	{
+		data.push({"id":i, "col1":i, "col2":"test" + i,"col3":"test" + i});
+	}
+
+	// igScroll initialization
+	$("#grid1").igScroll({
+		bigIncrementStep: 100
+	});
+
+	$("#grid1").igScroll({
+		alwaysVisible: true
+	});
+
+	$("#grid1").igGrid(
+		{
+			autoGenerateColumns:false,
+			autoCommit:true,
+			primaryKey:"id",
+			height:"300px",
+			width:"300px",
+			columns:[
+				{key:"id", headerText:"id", dataType:"number", width:"100px"},
+				{key:"col1", headerText:"col1", dataType:"number", width:"100px"},
+				{key:"col2", headerText:"col2", dataType:"string", width:"200px"},
+				{key:"col3", headerText:"col3", dataType:"string", width:"200px"}
+			],
+			dataSource: data
+		}
+    );
+
+});
+
+</script>
+</head>
+<body>
+
+<table id="grid1"></table>
+
+<br>
+<br>
+
+<div style="width:300px;height:300px;overflow:scroll;">
+<div style="width:800px;height:800px;">
+test1
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+test2
+</div>
+</div>
+
+
+<br>
+<br>
+<div>
+	<p><a href="./index.html">ホームに戻る</a></p>
+</div>
+
+</body>
+</html>
