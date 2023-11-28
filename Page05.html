@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<!-- Ignite UI for jQuery Required Combined CSS Files -->
+	<link href="http://cdn-na.infragistics.com/igniteui/2023.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+	<link href="http://cdn-na.infragistics.com/igniteui/2023.1/latest/css/structure/infragistics.css" rel="stylesheet" />
+	<link href="http://cdn-na.infragistics.com/igniteui/2023.1/latest/css/structure/modules/infragistics.ui.scroll.css" rel="stylesheet" />
+
+	<script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+	<!-- Ignite UI for jQuery Required Combined JavaScript Files -->
+	<script src="http://cdn-na.infragistics.com/igniteui/2023.1/latest/js/infragistics.core.js"></script>
+	<script src="http://cdn-na.infragistics.com/igniteui/2023.1/latest/js/infragistics.lob.js"></script>
+
+	<!--Sample JSON Data-->
+	<script src="./data-files/employee-data-allDatatypes.js"></script>
+
+	<style type="text/css">
+		#scrollableContent {
+			height: 400px;
+			width: 100%;
+			overflow: hidden;
+			border: 1px solid #ccc;
+		}
+
+		#table-div {
+			height: 400px;
+			width: 600px;
+			overflow: hidden;
+		}
+
+		#table-headers {
+			height: 60px;
+			width: 600px;
+			overflow: hidden;
+		}
+
+		#table-main-headers {
+			border: 1px solid #777777;
+			height: 400px;
+			width: 800px;
+		}
+
+		th {
+			background-color: #888888;
+			color: #ffffff;
+			height: 30px;
+		}
+
+		fieldset.explorer {
+			float: left;
+			width: 44%;
+		}
+
+		fieldset.explorer > div {
+			width:100%;
+			padding-bottom:15px;
+
+		}
+		.currVal {
+			display:inline !important;
+
+		}
+	</style>
+
+</head>
+<body>
+	<div class="sampleContent">
+		<div id="scrollableContent">
+			<table style="height:500px;width: 800px; table-layout:fixed;" id="table-main">
+				<colgroup></colgroup>
+				<thead>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
+		<fieldset id="rowNumber" class="explorer">
+			<legend>レコードの数: <span id="rowNum">100</span></legend>
+			<div><div id="rowNumSlider" style="margin: 10px 5px 5px 10px; width: 200px;"></div></div>
+		</fieldset>
+		<fieldset id="colNumber" class="explorer">
+			<legend>列の数: <span id="colNum">5</span></legend>
+			<div><div id="colNumSlider" style="margin: 10px 5px 5px 10px; width: 200px;"></div></div>
+		</fieldset>
+
+
+
+		<fieldset id="behaviorOptionsMobile" class="explorer">
+			<legend>スクロール動作のオプション - モバイル</legend>
+			<div><label for="inertiaDuration" style="display:inline"> 慣性の期間を変更: </label><label class="currVal">1</label><div id="inertiaDuration" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div><label for="inertiaStep" style="display:inline"> 慣性のステップを変更: </label><label class="currVal">1</label><div id="inertiaStep" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div><label for="swipeToleranceX" style="display:inline"> 垂直方法にスクロールする水平スワイプ許容値を変更: </label><label class="currVal">30</label>px<div id="swipeToleranceX" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+		</fieldset>
+
+
+		<fieldset id="behaviorOptionsDesktop" class="explorer">
+			<legend>スクロール動作のオプション - デスクトップ</legend>
+			<div><input type="checkbox" id="smoothing" /><label for="smoothing" style="display:inline"> スムーズ スクロールを有効</label></div>
+			<div style="display:none;"><label for="smoothingDuration" style="display:inline"> スムージング アニメーション期間を変更:</label><label class="currVal">1</label><div id="smoothingDuration" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div style="display:none;"><label for="smoothingStep" style="display:inline"> スムーズイングのステップを変更: </label><label class="currVal">1</label><div id="smoothingStep" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div><label for="wheelStep" style="display:inline"> ホイールのステップを変更: </label><label class="currVal">50</label>px<div id="wheelStep" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div><label for="smallIncrementStep" style="display:inline"> スクロールバーの矢印ステップを変更: </label><label class="currVal">40</label>px<div id="smallIncrementStep" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+			<div><label for="bigIncrementStep" style="display:inline"> トラック領域のスクロール ステップを変更: </label><label class="currVal">100</label>px<div id="bigIncrementStep" style="margin: 10px 5px 5px 10px; width: 200px;"></div> </div>
+
+		</fieldset>
+
+		<fieldset id="visualizationOptions" class="explorer">
+			<legend>スクロールの視覚化オプション</legend>
+			<div><input type="checkbox" id="alwaysVisible" /><label for="alwaysVisible" style="display:inline"> 常にスクロールバーを表示</label></div>
+			<div>
+				<select id="scrollbarType" style="width:150px; height:20px;">
+					<option>custom</option>
+					<option>native</option>
+					<option>none</option>
+				</select>
+				<label for="scrollbarType" style="display:inline"> スクロールバー タイプを変更 </label>
+			</div>
+		</fieldset>
+
+		<fieldset id="postionOptions" class="explorer">
+			<legend>スクロール位置のオプション</legend>
+			<div><label for="scrollTop"> スクロールの上位置を次の値に設定: </label><input id="scrollTop" type="text" value="0" style="height:22px;" /><button id="scrTopApply">適用</button></div>
+			<div><label for="scrollLeft"> スクロールの左位置を次の値に設定: </label><input id="scrollLeft" type="text" value="0" style="height:22px;" /><button id="scrLeftApply">適用</button></div>
+		</fieldset>
+
+		<div style="clear: both;"></div>
+	</div>
+		<script>
+
+			$(function () {
+
+				//igScroll initialization
+				$("#scrollableContent").igScroll({
+					bigIncrementStep: 100
+				});
+
+
+				generateTableContent(100, 5);
+
+
+				$("#rowNumSlider").slider({
+					change: function (event, ui) {
+						$("#rowNum").text(ui.value);
+						generateTableContent(ui.value, $("#colNumSlider").slider("value"));
+					},
+					min: 25,
+					max: 600,
+					value: 100,
+					step: 25
+				});
+
+				$("#colNumSlider").slider({
+					change: function (event, ui) {
+						$("#colNum").text(ui.value);
+						generateTableContent($("#rowNumSlider").slider("value"), ui.value);
+					},
+					min: 1,
+					max: 10,
+					value: 5,
+					step: 1
+				})
+
+				$("#alwaysVisible").change(function () {
+					$("#scrollableContent").igScroll("option", "alwaysVisible", $(this).is(':checked'));
+				});
+
+				$("#scrollbarType").change(function () {
+					$("#scrollableContent").igScroll("option", "scrollbarType", $(this).val());
+				});
+
+				$("#smoothingDuration").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "smoothingDuration", ui.value);
+					},
+					min: 1,
+					max: 5,
+					value: 1,
+					step: 1
+				});
+
+				$("#smoothingStep").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "smoothingStep", ui.value);
+					},
+					min: 1,
+					max: 5,
+					value: 1,
+					step: 1
+				});
+
+				$("#wheelStep").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "wheelStep", ui.value);
+					},
+					min: 50,
+					max: 500,
+					value: 50,
+					step: 50
+				});
+
+				$("#inertiaDuration").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "inertiaDuration", ui.value);
+					},
+					min: 0,
+					max: 5,
+					value: 1,
+					step: 1
+				});
+
+				$("#inertiaStep").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "inertiaStep", ui.value);
+					},
+					min: 0,
+					max: 5,
+					value: 1,
+					step: 1
+				});
+
+				$("#smallIncrementStep").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "smallIncrementStep", ui.value);
+					},
+					min: 25,
+					max: 500,
+					value: 25,
+					step: 25
+				});
+
+				$("#bigIncrementStep").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "bigIncrementStep", ui.value);
+					},
+					min: 100,
+					max: 1000,
+					value: 100,
+					step: 100
+				});
+
+				$("#smoothing").change(function () {
+					$("#scrollableContent").igScroll("option", "smoothing", $(this).is(':checked'));
+
+					if (!$(this).is(':checked')) {
+						$("#smoothingDuration").parent().hide();
+						$("#smoothingStep").parent().hide();
+					} else {
+						$("#smoothingDuration").parent().show();
+						$("#smoothingStep").parent().show();
+					}
+				});
+
+				$("#scrTopApply").igButton();
+				$("#scrLeftApply").igButton();
+
+				$("#scrTopApply").click(function () {
+					$("#scrollableContent").igScroll("option", "scrollTop", parseInt($("#scrollTop").val()));
+				});
+
+				$("#scrLeftApply").click(function () {
+					$("#scrollableContent").igScroll("option", "scrollLeft", parseInt($("#scrollLeft").val()));
+				});
+
+				$("#swipeToleranceX").slider({
+					change: function (event, ui) {
+						$(this).parent().find("label.currVal").text(ui.value);
+						$("#scrollableContent").igScroll("option", "swipeToleranceX", ui.value);
+					},
+					min: 0,
+					max: 180,
+					value: 30,
+					step: 30
+				});
+
+				//helper functions
+				function generateTableContent(rowCount, colCount) {
+					var allCols = ["Count", "FirstName", "LastName", "Country", "Age", "RegistererDate", "IsActive", "EmployeeID", "Col1", "Col2"]
+					var data = employees.slice(0, rowCount);
+
+					$("#table-main > tbody").empty();
+					var content = "";
+					for (var i = 0; i < data.length; i++) {
+						var rec = data[i];
+						content += "<tr>"
+						for (var j = 0; j < colCount; j++) {
+							var col = allCols[j];
+							if (col === "Count") {
+								content += "<td>" + i + "</td>";
+							} else {
+								var text = rec[col] !== undefined ? rec[col] : "";
+								content += "<td>" + text + "</td>";
+							}
+						}
+						content += "</tr>"
+						//content += "<tr> <td>" + i + "</td> <td>" + data[i].FirstName + "</td> <td>" + data[i].LastName +
+						//	"</td> <td>" + data[i].Country + "</td> <td>" + data[i].Age + "</td> <td>" + data[i].RegistererDate + "</td> <td>" + data[i].IsActive + "</td></tr>"
+					}
+
+					$("#table-main > thead").empty();
+					$("#table-main > colgroup").empty();
+					var headers = "<tr>";
+					var colGroups = "";
+					for (var i = 0; i < colCount; i++) {
+						headers += "<th style='width:200px;'>" + allCols[i] + "</th>";
+						colGroups += "<col style='width:200px;'>"
+					}
+					headers += "</tr>"
+
+					$("#table-main > colgroup").html(colGroups);
+					$("#table-main > thead").html(headers);
+					$("#table-main > tbody").html(content);
+
+
+					$("#scrollableContent").igScroll("option", "scrollHeight", $("#table-main").height());
+					$("#scrollableContent").igScroll("option", "scrollWidth", $("#table-main").width());
+				}
+			});
+		</script>
+
+</body>
+</html>
